@@ -12,30 +12,18 @@ DEFAULT_PROFILE = {
 }
 
 
-def normalize_title(title: str) -> str:
-    """Normalize a song title for comparisons."""
-    if not isinstance(title, str):
+def normalize(value: str) -> str:
+    """Normalize a string by lowercasing and stripping whitespace."""
+    if not isinstance(value, str):
         return ""
-    return title.strip()
-
-
-def normalize_artist(artist: str) -> str:
-    """Normalize an artist name for comparisons."""
-    if not artist:
-        return ""
-    return artist.strip().lower()
-
-
-def normalize_genre(genre: str) -> str:
-    """Normalize a genre name for comparisons."""
-    return genre.lower().strip()
+    return value.lower().strip()
 
 
 def normalize_song(raw: Song) -> Song:
     """Return a normalized song dict with expected keys."""
-    title = normalize_title(str(raw.get("title", "")))
-    artist = normalize_artist(str(raw.get("artist", "")))
-    genre = normalize_genre(str(raw.get("genre", "")))
+    title = normalize(str(raw.get("title", "")))
+    artist = normalize(str(raw.get("artist", "")))
+    genre = normalize(str(raw.get("genre", "")))
     energy = raw.get("energy", 0)
 
     if isinstance(energy, str):
